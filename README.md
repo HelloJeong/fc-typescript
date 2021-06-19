@@ -181,18 +181,18 @@ package.json 파일 내부 scripts에서는 `tsc`로 컴파일 가능
      type ObjectIndexable = Indexable<"Jeong">;
      ```
 
-- **void**
+1. **void**
 
-  - 함수의 반환 타입으로 쓰임. undefined와 의미가 같음
-  - undefined에 할당조차도 못함
+   - 함수의 반환 타입으로 쓰임. undefined와 의미가 같음
+   - undefined에 할당조차도 못함
 
-    ```typescript
-    function returnVoid(message: string): void {
-      console.log(message);
-      return;
-      //   return undefined; // 유일하게 void에 할당 가능
-    }
+     ```typescript
+     function returnVoid(message: string): void {
+       console.log(message);
+       return;
+       //   return undefined; // 유일하게 void에 할당 가능
+     }
 
-    const r = returnVoid("리턴이 없다");
-    // const r: undefined = returnVoid("리턴이 없다");  // error
-    ```
+     const r = returnVoid("리턴이 없다");
+     // const r: undefined = returnVoid("리턴이 없다");  // error
+     ```
