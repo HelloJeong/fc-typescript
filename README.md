@@ -37,7 +37,7 @@ package.json 파일 내부 scripts에서는 `tsc`로 컴파일 가능
 
 - JavaScript Type : Dynamic Type이라서 런타임에 돌입해야만 타입 체크가 가능(`resolved at runtime`)
 
-1. Primitive Types
+1. **Primitive Types**
 
    - 오브젝트와 레퍼런스 형태가 아닌 실제 값을 저장하는 자료형(`기본 자료형`)
    - ES6 기준 boolean, number, string, symbol, null/undefined
