@@ -7,11 +7,7 @@
 
 _Fastcampus TypeScript 강의 내용을 정리해둔 자료입니다._
 
----
-
 ## 설치와 사용(npm / visual studio plugins)
-
----
 
 devDependencies로 설치
 
@@ -35,11 +31,7 @@ npx tsc --init
 
 package.json 파일 내부 scripts에서는 `tsc`로 컴파일 가능
 
----
-
 ## Basic Types
-
----
 
 - TypeScript Type : Static Type이라서 개발 중에 타입을 체크(`set during development`)
 
