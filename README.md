@@ -196,3 +196,37 @@ package.json 파일 내부 scripts에서는 `tsc`로 컴파일 가능
      const r = returnVoid("리턴이 없다");
      // const r: undefined = returnVoid("리턴이 없다");  // error
      ```
+
+## Type System
+
+- 컴파일러에게 사용하는 타입을 명시적으로 지정하는 시스템
+- 컴파일러가 자동으로 타입을 추론하는 시스템
+
+### TypeScript의 Type System
+
+- 타입을 명시적으로 지정할 수 있음
+- 명시적으로 지정하지 않으면, 컴파일러가 타입을 자동으로 추론
+
+1. **작성자(구현자)와 사용자의 관점으로 코드 바라보기**
+
+   - 타입은 해당 변수가 할 수 있는 일을 결정하는 것이다.
+   - `noImplicitAny` 옵션
+     - tsc가 추론 중에 `any`라고 판단되면 error를 발생
+   - `strictNullChecks` 옵션
+     - 모든 타입에 자동으로 포함되어 있는 `null`과 `undefined`를 제거
+   - `noImplicitReturns` 옵션
+     - 함수 내에서 모든 코드가 값을 리턴하지 않으면 error를 발생
+
+1. **Structural Type System vs Nominal Type System**
+
+   - `Structural Type System` : 구조가 같으면 같은 타입이다.(**_TypeScript_**)
+   - `Nominal Type System` : 구조가 같아도 이름이 다르면 다른 타입이다.(**_C/JAVA 같은 언어_**)
+   - `duck typing`: 만약 어떤 새가 오리처럼 걷고, 헤엄치고, 꽥꽥거리는 소리를 낸다면 나는 그 새를 오리라고 부를 것이다.(**_Python_**)
+
+1. **타입 호환성(Type Compatibility)**
+
+   - `공변` : 같거나 서브타입인 경우, 할당이 가능
+
+   - `반병` : 함수의 매개변수 타입만 같거나 슈퍼타입인 경우, 할당이 가능
+     - `strictFunctionTypes` 옵션
+       - 함수를 할당할 시에 함수의 매개변수 타입이 같거나 슈퍼타입인 경우가 아닌 경우, 에러를 통해 경고
