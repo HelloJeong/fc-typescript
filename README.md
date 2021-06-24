@@ -272,4 +272,21 @@ package.json 파일 내부 scripts에서는 `tsc`로 컴파일 가능
      - <s>tsNode</s>
 
 1. **compileOnSave**
+
    - save를 하면 compile해주는 옵션
+
+1. **extends**
+
+   - 2.1버전 이상에서 사용 가능
+   - TypeScript에서 extends 설정을 모아둔 사이트가 있음([바로가기](https://github.com/tsconfig/bases))
+
+   ```bash
+   npm i --save-dev @tsconfig/deno
+   ```
+
+   ```json
+   {
+     "extends": "@tsconfig/deno/tsconfig.json",
+     ...
+   }
+   ```
