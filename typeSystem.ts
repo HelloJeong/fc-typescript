@@ -121,3 +121,26 @@ tellme(function pToD(d: Person): Developer {
 // tellme(function sToD(d: StartupDeveloper): Developer {
 //   return new Developer();
 // });
+
+/* Type Alias */
+
+// Aliasing Union Type
+let p: string | number = 0;
+p = "jeong";
+
+type StringOrNumber = string | number;
+
+let pp: StringOrNumber = 0;
+pp = "jeong";
+
+// Aliasing Tuple
+let ppp: [string, number] = ["jeong", 30];
+type PersonTuple = [string, number];
+let another: PersonTuple = ["kim", 20];
+
+// Aliasing Function
+type functionType = (name: string) => string;
+
+const functionA: functionType = (name) => `Hello, ${name}!`;
+
+console.log(functionA("Jeong"));

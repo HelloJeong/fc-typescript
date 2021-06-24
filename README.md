@@ -230,3 +230,23 @@ package.json 파일 내부 scripts에서는 `tsc`로 컴파일 가능
    - `반병` : 함수의 매개변수 타입만 같거나 슈퍼타입인 경우, 할당이 가능
      - `strictFunctionTypes` 옵션
        - 함수를 할당할 시에 함수의 매개변수 타입이 같거나 슈퍼타입인 경우가 아닌 경우, 에러를 통해 경고
+
+1. **타입 별칭(Type Alias)**
+
+   - `Aliasing Union Type`
+
+     ```typescript
+     type StringOrNumber = string | number;
+     ```
+
+   - Aliasing Tuple
+
+     ```typescript
+     type PersonTuple = [string, number];
+     ```
+
+   - Aliasing Function
+
+     ```typescript
+     type EatType = (food: string) => void;
+     ```
