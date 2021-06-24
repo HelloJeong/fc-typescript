@@ -386,12 +386,16 @@ package.json 파일 내부 scripts에서는 `tsc`로 컴파일 가능
           - 모든 타입은 null, undefined를 가질 수 없고, 가지려면 union type을 이용해서 직접 명시해야 함
           - any 타입은 null과 undefined를 가진다. 예외적으로 void 타입의 경우 undefined를 가진다.
 
-      - `--strictFunctionTypes` : Disable bivariant parameter checking for function types.(공변과 반병)
+      - `--strictFunctionTypes`
+
+        - Disable bivariant parameter checking for function types.(공변과 반병)
 
       - `--strictPropertyInitialization`
 
         - 정의되지 않은 클래스의 속성이 생성자에서 초기화되었는지 확인
         - `--strictNullChecks`를 사용해야함
+        - !를 사용하여 나중에 초기화(async 함수 등으로 초기화)를 알릴수 있다.
+        - constructor()는 async를 사용할 수 없기 때문에.
 
       ```typescript
       class Person {
@@ -405,9 +409,6 @@ package.json 파일 내부 scripts에서는 `tsc`로 컴파일 가능
         }
       }
       ```
-
-      - !를 사용하여 나중에 초기화(async 함수 등으로 초기화)를 알릴수 있다.
-      - constructor()는 async를 사용할 수 없기 때문에.
 
       ```typescript
       class Person {
@@ -425,12 +426,12 @@ package.json 파일 내부 scripts에서는 `tsc`로 컴파일 가능
       }
       ```
 
-- `--strictBindCallApply`
+      - `--strictBindCallApply`
 
-  - bind, call, apply에 대해 더 엄격하게 검사를 수행
-  - bind는 해당 함수 안에서 사용할 this와 인자를 설정해주는 역할
-  - call, apply는 this와 인자를 설정한 후 실행까지 함
-  - call은 함수의 인자를 여러 인자의 나열로 넣어서 사용하고, apply는 모든 인자를 배열 하나로 넣어서 사용
+        - bind, call, apply에 대해 더 엄격하게 검사를 수행
+        - bind는 해당 함수 안에서 사용할 this와 인자를 설정해주는 역할
+        - call, apply는 this와 인자를 설정한 후 실행까지 함
+        - call은 함수의 인자를 여러 인자의 나열로 넣어서 사용하고, apply는 모든 인자를 배열 하나로 넣어서 사용
 
-- `--alwaysStrict`
-  - 각 소스 파일에 대해 JS의 strict mode로 코드를 분석하고 "엄격하게 사용"을 해제
+      - `--alwaysStrict`
+        - 각 소스 파일에 대해 JS의 strict mode로 코드를 분석하고 "엄격하게 사용"을 해제
