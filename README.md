@@ -258,6 +258,7 @@ package.json 파일 내부 scripts에서는 `tsc`로 컴파일 가능
    - [TypeScript Deep Dive](https://basarat.gitbook.io/typescript/project/compilation-context)
 
 1. **sconfig schema**
+
    - [config file](http://json.schemastore.org/tsconfig)
    - 최상위 프로퍼티
      - compileOnSave
@@ -269,3 +270,6 @@ package.json 파일 내부 scripts에서는 `tsc`로 컴파일 가능
      - references
      - <s>typeAcquisition</s>
      - <s>tsNode</s>
+
+1. **compileOnSave**
+   - save를 하면 compile해주는 옵션
