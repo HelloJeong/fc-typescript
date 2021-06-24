@@ -250,3 +250,22 @@ package.json 파일 내부 scripts에서는 `tsc`로 컴파일 가능
      ```typescript
      type EatType = (food: string) => void;
      ```
+
+## TypeScript Compiler
+
+1. **Compilation Context**
+
+   - [TypeScript Deep Dive](https://basarat.gitbook.io/typescript/project/compilation-context)
+
+1. **sconfig schema**
+   - [config file](http://json.schemastore.org/tsconfig)
+   - 최상위 프로퍼티
+     - compileOnSave
+     - extends
+     - compileOptions
+     - files : 어떤 파일을 컴파일할 것인지 결정
+     - include : 어떤 파일을 컴파일할 것인지 결정
+     - exclude : 어떤 파일을 컴파일할 것인지 결정
+     - references
+     - <s>typeAcquisition</s>
+     - <s>tsNode</s>
