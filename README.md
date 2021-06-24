@@ -290,3 +290,20 @@ package.json 파일 내부 scripts에서는 `tsc`로 컴파일 가능
      ...
    }
    ```
+
+1. **files, include, exclude**
+
+   - **tsconfig.json에 세 가지의 설정이 없다면 모든 파일을 컴파일 한다.**
+
+   - **files**
+
+     - 상대 혹은 절대 경로의 리스트 배열
+     - exclude에서 제외된 파일이여도 files에 있다면 컴파일을 하게 됨
+
+   - **include, exclude**
+     - glob 패턴(.gitignore 파일 내용처럼)
+     - include
+       - \* 같은걸 사용하면 .ts, .tsx, .d.ts만 include(allowJS)
+     - exclude
+       - **설정 안하면 4가지(node_modules, bower_components, jspm_packages, \<outDir>)를 default로 제외**
+       - \<outDir>은 include에 있어도 항상 제외
