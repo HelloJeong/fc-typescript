@@ -253,57 +253,184 @@ package.json 파일 내부 scripts에서는 `tsc`로 컴파일 가능
 
 ## TypeScript Compiler
 
-1. **Compilation Context**
+1.  **Compilation Context**
 
-   - [TypeScript Deep Dive](https://basarat.gitbook.io/typescript/project/compilation-context)
+    - [TypeScript Deep Dive](https://basarat.gitbook.io/typescript/project/compilation-context)
 
-1. **sconfig schema**
+1.  **sconfig schema**
 
-   - [config file](http://json.schemastore.org/tsconfig)
-   - 최상위 프로퍼티
-     - compileOnSave
-     - extends
-     - compileOptions
-     - files : 어떤 파일을 컴파일할 것인지 결정
-     - include : 어떤 파일을 컴파일할 것인지 결정
-     - exclude : 어떤 파일을 컴파일할 것인지 결정
-     - references
-     - <s>typeAcquisition</s>
-     - <s>tsNode</s>
+    - [config file](http://json.schemastore.org/tsconfig)
+    - 최상위 프로퍼티
+      - compileOnSave
+      - extends
+      - compileOptions
+      - files : 어떤 파일을 컴파일할 것인지 결정
+      - include : 어떤 파일을 컴파일할 것인지 결정
+      - exclude : 어떤 파일을 컴파일할 것인지 결정
+      - references
+      - <s>typeAcquisition</s>
+      - <s>tsNode</s>
 
-1. **compileOnSave**
+1.  **compileOnSave**
 
-   - save를 하면 compile해주는 옵션
+    - save를 하면 compile해주는 옵션
 
-1. **extends**
+1.  **extends**
 
-   - 2.1버전 이상에서 사용 가능
-   - TypeScript에서 extends 설정을 모아둔 사이트가 있음([바로가기](https://github.com/tsconfig/bases))
+    - 2.1버전 이상에서 사용 가능
+    - TypeScript에서 extends 설정을 모아둔 사이트가 있음([바로가기](https://github.com/tsconfig/bases))
 
-   ```bash
-   npm i --save-dev @tsconfig/deno
-   ```
+    ```bash
+    npm i --save-dev @tsconfig/deno
+    ```
 
-   ```json
-   {
-     "extends": "@tsconfig/deno/tsconfig.json",
-     ...
-   }
-   ```
+    ```json
+    {
+      "extends": "@tsconfig/deno/tsconfig.json",
+      ...
+    }
+    ```
 
-1. **files, include, exclude**
+1.  **files, include, exclude**
 
-   - **tsconfig.json에 세 가지의 설정이 없다면 모든 파일을 컴파일 한다.**
+    - **tsconfig.json에 세 가지의 설정이 없다면 모든 파일을 컴파일 한다.**
 
-   - **files**
+    - **files**
 
-     - 상대 혹은 절대 경로의 리스트 배열
-     - exclude에서 제외된 파일이여도 files에 있다면 컴파일을 하게 됨
+      - 상대 혹은 절대 경로의 리스트 배열
+      - exclude에서 제외된 파일이여도 files에 있다면 컴파일을 하게 됨
 
-   - **include, exclude**
-     - glob 패턴(.gitignore 파일 내용처럼)
-     - include
-       - \* 같은걸 사용하면 .ts, .tsx, .d.ts만 include(allowJS)
-     - exclude
-       - **설정 안하면 4가지(node_modules, bower_components, jspm_packages, \<outDir>)를 default로 제외**
-       - \<outDir>은 include에 있어도 항상 제외
+    - **include, exclude**
+      - glob 패턴(.gitignore 파일 내용처럼)
+      - include
+        - \* 같은걸 사용하면 .ts, .tsx, .d.ts만 include(allowJS)
+      - exclude
+        - **설정 안하면 4가지(node_modules, bower_components, jspm_packages, \<outDir>)를 default로 제외**
+        - \<outDir>은 include에 있어도 항상 제외
+
+1.  **compileOptions**
+
+    - **typeRoots, types**
+
+      - **typeRoots**
+        - Specify multiple folders that act like `'./node_modules/@types'`.
+        - 모든 모듈이 @types로 되어있지 않을수도 있기 때문에
+      - **type**
+        - Specify type <u>package names</u> to be included without being referenced in a source
+      - **@types**
+        - 2.0버전 이후부터 사용 가능해진 내장 type definition 시스템
+        - 아무 설정을 안하면 node_modules/@types라는 모든 경로를 찾아서 사용
+        - typeRoots를 사용하면 배열 안에 들어있는 경로들 아래서만 가져와서 사용
+        - types를 사용하면 배열 안의 모듈 혹은 node_moudles/@types/ 안의 모듈 이름에서 찾아와서 사용
+        - types에 빈 배열([])을 넣는다는 것은 이 시스템을 이용하지 않겠다는 것
+        - typeRoots와 types를 같이 사용하지 않는다.
+
+    - **target, lib**
+
+      - target(빌드의 결과물에 대한 JS version을 선택, default: ES3)
+      - lib
+        - 기본 type definition 라이브러리를 어떤 것을 사용할 것인지 선택
+        - 지정하지 않는다면
+          - target이 ES3이면, lib.d.ts를 사용
+          - target이 ES5이면, dom, es5, scripthost를 사용
+          - target이 ES6이면, dom, es6, dom.iterable, scripthost를 사용
+        - lib를 지정하면 그 lib 배열로만 라이브러리를 사용
+          - 빈 배열([])이라면 'no definition found ~~~~'
+      - [참고](https://kangax.github.io/compat-table/es6/)
+
+    - **outDir, outFile, rootDir**
+      - 컴파일된 파일들의 경로를 설정 또는 루트 파일의 경로를 설정
+    - **strict**(default: false)
+
+      - Enable all strict type checking options.
+      - `--noImplicitAny` : 명시적이기 않게 any 타입을 사용하여, 표현식과 선언에 사용하면, 에러를 발생
+
+        ```typescript
+        function noImplicitAnyTestFunc(arg) {
+          console.log(arg);
+        }
+        ```
+
+      - `--noImplicitThis` : 명시적이지 않게 any 타입을 사용하여, this 표현식에 사용하면, 에러를 발생
+
+        ```typescript
+        function noImplicitThisTestFunc(name: string, age: number) {
+          this.name = name;
+          this.age = age;
+
+          return this;
+        }
+
+        class noImplicitThisTestClass {
+          private _name: string;
+          private _age: number;
+
+          constructor(name: string, age: number) {
+            this._name = name;
+            this._age = age;
+          }
+
+          public print(this: NoImplicitThisTestClass) {
+            console.log(this._name, this._age);
+          }
+        }
+        ```
+
+      - **`--strictNullChecks`**
+
+        - null 및 undefined 값이 모든 유형의 도메인에 속하지 않으며, 그 자신을 타입으로 가지거나, any일 경우에만 할당이 가능. (예외 : undefined에는 void 할당 가능)
+        - 적용하지 않으면
+          - 모든 타입은 null, undefined를 가질 수 있음
+          - string인데 null | undefined 할당 가능
+        - 적용하면
+          - 모든 타입은 null, undefined를 가질 수 없고, 가지려면 union type을 이용해서 직접 명시해야 함
+          - any 타입은 null과 undefined를 가진다. 예외적으로 void 타입의 경우 undefined를 가진다.
+
+      - `--strictFunctionTypes` : Disable bivariant parameter checking for function types.(공변과 반병)
+
+      - `--strictPropertyInitialization`
+
+        - 정의되지 않은 클래스의 속성이 생성자에서 초기화되었는지 확인
+        - `--strictNullChecks`를 사용해야함
+
+      ```typescript
+      class Person {
+        private _name: string;
+        private _age: number;
+
+        constructor() {}
+
+        public print() {
+          console.log(this._name, this._age);
+        }
+      }
+      ```
+
+      - !를 사용하여 나중에 초기화(async 함수 등으로 초기화)를 알릴수 있다.
+      - constructor()는 async를 사용할 수 없기 때문에.
+
+      ```typescript
+      class Person {
+        private _name!: string;
+        private _age!: number;
+
+        public async init(name: string, age: number) {
+          this._name = name;
+          this._age = age;
+        }
+
+        public print() {
+          console.log(this._name, this._age);
+        }
+      }
+      ```
+
+- `--strictBindCallApply`
+
+  - bind, call, apply에 대해 더 엄격하게 검사를 수행
+  - bind는 해당 함수 안에서 사용할 this와 인자를 설정해주는 역할
+  - call, apply는 this와 인자를 설정한 후 실행까지 함
+  - call은 함수의 인자를 여러 인자의 나열로 넣어서 사용하고, apply는 모든 인자를 배열 하나로 넣어서 사용
+
+- `--alwaysStrict`
+  - 각 소스 파일에 대해 JS의 strict mode로 코드를 분석하고 "엄격하게 사용"을 해제
