@@ -84,7 +84,7 @@ interface IPerson1 {
   hello(): void;
 }
 
-class CPerson implements IPerson1 {
+class CIPerson implements IPerson1 {
   name: string;
   age?: number | undefined;
 
@@ -98,10 +98,10 @@ class CPerson implements IPerson1 {
 }
 
 // 아래 다 가능
-// const cp1: IPerson1 = new CPerson("jeong");
-// const cp1: CPerson = new CPerson("jeong");
-const cp1 = new CPerson("jeong");
-cp1.hello();
+// const cip: IPerson1 = new CIPerson("jeong");
+// const cip: CIPerson = new CIPerson("jeong");
+const cip = new CIPerson("jeong");
+cip.hello();
 
 interface IPerson2 {
   name: string;

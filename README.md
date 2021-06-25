@@ -544,4 +544,68 @@ package.json 파일 내부 scripts에서는 `tsc`로 컴파일 가능
 
 ## Classes
 
+1. **What are Classes?**
+
+   - 클래스 이전에 object를 만들려면 function이었지만, ES6부터는 class가 생김(접근 제어자가 없는 등의 단점)
+   - class도 결국 사용자가 만드는 type의 하나
+
+1. **Quick Start**
+
+   - 컴파일을 하면 es5의 경우 function으로 변경된다.
+
+1. **constructor & initialize**
+
+   - 직접 초기화나 constructor를 사용해서 초기화를 해주지 않으면 다음과 같은 에러가 발생(`strictPropertyInitialization` 옵션)
+
+     ```plaintext
+     Property '~~~' has no initializer and is not definitely assigned in the constructor.
+     ```
+
+   - 프로퍼티를 선언하는 곳 또는 생성자에서 값을 할당하지 않는 경우에는 `!`를 붙여서 위험을 표현
+   - 생성자에는 async 설정 불가
+
+1. **접근 제어자(Access Modifiers)**
+
+   - private 제어자의 경우 js에서는 암묵적인 약속으로 \_ 를 붙였음
+
+1. **Initialization in Constructor Parameters**
+
+   ```typescript
+   class Person {
+     public constructor(public name: string, private age: number) {}
+   }
+   ```
+
+1. **Getters & Setters, readonly**
+
+   - set을 지정하지 않으면 해당 프로퍼티는 readonly처럼 쓸 수 있음
+
+   ```typescript
+   class Person {
+     public constructor(private _name: string, private _age: number, private readonly _gender: string) {}
+     get name() {
+       return this._name + "님";
+     }
+     set name(n: string) {
+       this._name = n;
+     }
+     get gender() {
+       return this._gender;
+     }
+   }
+
+   const p1 = new Person("jeong", 30, "male");
+   console.log(p1.name); // get
+   p1.name = "kim"; // set
+   console.log(p1.gender); // get
+   ```
+
+1. **Index Signatures in class**
+
+   -
+
+   ```typescript
+
+   ```
+
 ## Generics
