@@ -592,6 +592,9 @@ package.json 파일 내부 scripts에서는 `tsc`로 컴파일 가능
      get gender() {
        return this._gender;
      }
+     get age() {
+       return this._age;
+     }
    }
 
    const p1 = new Person("jeong", 30, "male");
