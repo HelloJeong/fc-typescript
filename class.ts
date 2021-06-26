@@ -28,3 +28,43 @@ class CPerson1 {
 
 const cp11 = new CPerson1("jeong", 30, "male");
 console.log(cp11.gender); // get
+
+class Students {
+  [index: string]: "male" | "female";
+
+  exam: "male" = "male";
+}
+
+const sa = new Students();
+sa.jeong = "male";
+sa.kim = "male";
+const sb = new Students();
+sb.lee = "female";
+sb.park = "male";
+console.log(sa, sb);
+
+/* Singletons */
+
+class ClassName {
+  private static instance: ClassName | null = null;
+  public static getInstance(): ClassName {
+    // ClassName으로부터 만든 object가 있으면 그걸 리턴, 없으면 만들어서 리턴
+    if (ClassName.instance === null) {
+      ClassName.instance = new ClassName();
+    }
+    return ClassName.instance;
+  }
+  private constructor() {}
+}
+const ca = ClassName.getInstance();
+const cb = ClassName.getInstance();
+
+console.log(ca === cb);
+
+/* abstract */
+
+abstract class AbstractPerson {
+  protected _name: string = "jeong";
+
+  abstract setName(name: string): void;
+}

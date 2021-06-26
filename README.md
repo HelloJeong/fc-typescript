@@ -580,35 +580,90 @@ package.json 파일 내부 scripts에서는 `tsc`로 컴파일 가능
 
    - set을 지정하지 않으면 해당 프로퍼티는 readonly처럼 쓸 수 있음
 
-   ```typescript
-   class Person {
-     public constructor(private _name: string, private _age: number, private readonly _gender: string) {}
-     get name() {
-       return this._name + "님";
+     ```typescript
+     class Person {
+       public constructor(private _name: string, private _age: number, private readonly _gender: string) {}
+       get name() {
+         return this._name + "님";
+       }
+       set name(n: string) {
+         this._name = n;
+       }
+       get gender() {
+         return this._gender;
+       }
+       get age() {
+         return this._age;
+       }
      }
-     set name(n: string) {
-       this._name = n;
-     }
-     get gender() {
-       return this._gender;
-     }
-     get age() {
-       return this._age;
-     }
-   }
 
-   const p1 = new Person("jeong", 30, "male");
-   console.log(p1.name); // get
-   p1.name = "kim"; // set
-   console.log(p1.gender); // get
-   ```
+     const p1 = new Person("jeong", 30, "male");
+     console.log(p1.name); // get
+     p1.name = "kim"; // set
+     console.log(p1.gender); // get
+     ```
 
 1. **Index Signatures in class**
 
-   -
+   - 프로퍼티가 고정된 형태가 아닌 동적인 형태일 때 사용하면 좋다.
 
-   ```typescript
+   - 만약 각 반의 {이름:성별} 클래스가 있어야 한다면? (ex. {jeong: 'male', kim: 'male'}, {lee:'female', park: 'male'});
 
-   ```
+     ```typescript
+     class Students {
+       [index: string]: "male" | "female"; // male 또는 female만 가능
+
+       exam: "male" = "male";
+     }
+     const a = new Students();
+     a.jeong = "male";
+     a.kim = "male";
+     const b = new Students();
+     b.lee = "female";
+     b.park = "male";
+     console.log(a, b);
+     ```
+
+1. **Static Properties & Methods**
+
+   - `접근제어자 static ~`
+
+1. **Singletons**
+
+   - class로부터 단 하나의 object만 생성해서 사용하는 패턴
+
+     ```typescript
+     class ClassName {
+       private static instance: ClassName | null = null;
+       public static getInstance(): ClassName {
+         // ClassName으로부터 만든 object가 있으면 그걸 리턴, 없으면 만들어서 리턴
+         if (ClassName.instance === null) {
+           ClassName.instance = new ClassName();
+         }
+         return ClassName.instance;
+       }
+       private constructor() {}
+     }
+     const ca = ClassName.getInstance();
+     const cb = ClassName.getInstance();
+
+     console.log(ca === cb);
+     ```
+
+1. **Inheritance**
+
+   - `extends` 키워드
+   - `private, protected` 접근 제어자로 각자의 영역에서 서로의 영역에 오염되지 않도록하는 것이 중요
+
+1. **Abstract Classes**
+   - `abstract` 키워드
 
 ## Generics
+
+1. **Generics, Any와 다른점**
+1. **Generics Basic**
+1. **Generics Array & Tuple**
+1. **Generics Function**
+1. **Generics Class**
+1. **Generics with extends**
+1. **keyof & type lookup system**
