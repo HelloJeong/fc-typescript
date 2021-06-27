@@ -661,9 +661,82 @@ package.json 파일 내부 scripts에서는 `tsc`로 컴파일 가능
 ## Generics
 
 1. **Generics, Any와 다른점**
+   - Any Type은 들어온 input에 따라 달라지는 타이핑이 불가능
 1. **Generics Basic**
+
+   ```typescript
+   function helloGeneric<T>(message: T): T {
+     return message;
+   }
+
+   console.log(helloGeneric<string>("jeong")); // 명시(인자가 제한을 받게 됨)
+   console.log(helloGeneric("jeong")); // string의 sub type인 'jeong' literal 타입으로 추론
+   console.log(helloGeneric(30));
+   ```
+
 1. **Generics Array & Tuple**
+
+   ```typescript
+   function helloArray<T>(message: T[]): T {
+     return message[0];
+   }
+
+   console.log(helloArray(["A", "B"])); // string으로 추론
+   console.log(helloArray(["A", 5])); // union type string | number로 추론(자동완성은 string과 number가 사용할 수 있는 공통된 것이 나옴)
+
+   function helloTuple<T, K>(message: [T, K]): T {
+     return message[0];
+   }
+   console.log(helloTuple(["A", "B"]));
+   console.log(helloTuple(["A", 5]));
+   ```
+
 1. **Generics Function**
+
+   ```typescript
+   type HelloFunctionGeneric1 = <T>(message: T) => T;
+
+   const helloFunction1: HelloFunctionGeneric1 = <T>(message: T): T => message;
+
+   interface HelloFunctionGeneric2 {
+     <T>(message: T): T;
+   }
+
+   const helloFunction2: HelloFunctionGeneric1 = <T>(message: T): T => message;
+   ```
+
 1. **Generics Class**
+   - `class 클래스명<T>`
 1. **Generics with extends**
+
+   - extends로 제네릭에 넣어야하는 타입을 명시하는 것과 같음
+
+   ```typescript
+   class GenericsPersonExtends<T extends string | number> {
+     constructor(private _name: T) {}
+   }
+
+   new GenericsPersonExtends("jeong");
+   new GenericsPersonExtends(30);
+   // new GenericsPersonExtends(true);
+   ```
+
 1. **keyof & type lookup system**
+
+   ```typescript
+   interface KeyOfIPerson {
+     name: string;
+     age: number;
+   }
+
+   const keyPerson: KeyOfIPerson = {
+     name: "jeong",
+     age: 30,
+   };
+
+   function getProp<T, K extends keyof T>(obj: T, key: K): T[K] {
+     return obj[key];
+   }
+
+   getProp(keyPerson, "age");
+   ```
